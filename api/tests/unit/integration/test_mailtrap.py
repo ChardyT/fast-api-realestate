@@ -18,8 +18,8 @@ class TestMailtrap:
             url=f"{mailtrap_client.base_url}/send/{AppConfig.MAILTRAP_INBOX_NUMBER}",
             headers=mailtrap_client.headers,
             json={
-                "from": {"email": "almirmulke4@gmail.com", "name": "Account creation exercise."},
-                "to": [{"email": "almirmulke4@gmail.com", "name": "Almir"}],
+                "from": {"email": "dahajeanchrist@gmail.com", "name": "Account creation exercise."},
+                "to": [{"email": "dahajeanchrist@gmail.com", "name": "Bossia"}],
                 "subject": "Email subject",
                 "text": "Email text",
             },
@@ -37,8 +37,8 @@ class TestMailtrap:
             url=f"{mailtrap_client.base_url}/send/{AppConfig.MAILTRAP_INBOX_NUMBER}",
             headers=mailtrap_client.headers,
             json={
-                "from": {"email": "almirmulke4@gmail.com", "name": "Account creation exercise."},
-                "to": [{"email": "almirmulke4@gmail.com", "name": "Almir"}],
+                "from": {"email": "dahajeanchrist@gmail.com", "name": "Account creation exercise."},
+                "to": [{"email": "dahajeanchrist@gmail.com", "name": "Bossia"}],
                 "subject": "Email subject",
                 "text": "Email text",
             },

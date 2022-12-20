@@ -14,8 +14,8 @@ class MailtrapClient(Singleton):
             url=f"{self.base_url}/send/{AppConfig.MAILTRAP_INBOX_NUMBER}",
             headers=self.headers,
             json={
-                "from": {"email": "almirmulke4@gmail.com", "name": "Account creation exercise."},
-                "to": [{"email": "almirmulke4@gmail.com", "name": "Almir"}],
+                "from": {"email": "dahajeanchrist@gmail.com", "name": "Account creation exercise."},
+                "to": [{"email": "dahajeanchrist@gmail.com", "name": "Bossia"}],
                 "subject": subject,
                 "text": text,
             },
