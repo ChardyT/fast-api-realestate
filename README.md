@@ -8,3 +8,22 @@ To simulate email validation process please find below the mailtrap credentials:
 
 Once connected click:
 * Sandbox > inboxes
+
+
+Build image & compose
+# docker-compose up -d
+
+Restart container
+# docker restart <container-id> or <container-name>
+
+Rebuild
+# docker-compose build --no-cache
+
+Delete image
+# docker image rm <image-id>
+
+# docker inspect <container-id>
+
+# docker exec -it <container-id> sh
+
+#docker-compose up --build
