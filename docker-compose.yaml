@@ -11,8 +11,10 @@ services:
       - ENVIRONMENT=dev
       - CORS_ALLOWED_ORIGINS=["http://localhost:3000"]
       - JWT_SECRET=notsecret
-      - MAILTRAP_API_KEY=0ab51cc6539b91d8a1c9452353426a61
-      - MAILTRAP_INBOX_NUMBER=2013495
+      # - MAILTRAP_API_KEY=0ab51cc6539b91d8a1c9452353426a61 
+      - MAILTRAP_API_KEY=512e2c9e8068450674cd77bbb4670070
+      # - MAILTRAP_INBOX_NUMBER=2013495
+      - MAILTRAP_INBOX_NUMBER=1434307
     volumes:
       - ./api:/server
     ports:
