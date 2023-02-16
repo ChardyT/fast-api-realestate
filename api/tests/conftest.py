@@ -7,9 +7,8 @@ from fastapi import Request
 from httpx import AsyncClient
 
 from app import app
-from entities.user import User
-from middlwares.authentication import authentication_middlware
-from utils.database import get_db_connection
+from api.entities.city import User
+
 
 pytest_plugins = [
     fixture.replace("/", ".").replace("\\", ".").replace(".py", "")
@@ -17,8 +16,8 @@ pytest_plugins = [
     + glob("tests/integration/fixtures/**/*.py", recursive=True)
     if "__" not in fixture
 ]
-app.dependency_overrides[get_db_connection] = lambda: MagicMock()
-default_user_instance = User(
+
+default_location_instance = User(
     id=1,
     email="default@email.com",
     password="defaultpass",
@@ -35,15 +34,4 @@ def async_client():
 
 @pytest.fixture
 def default_user():
-    return default_user_instance
-
-
-def authentication_middlware_override(request=Request):
-    request.user = default_user_instance
-
-
-@pytest.fixture
-def override_auth_middlware():
-    app.dependency_overrides[authentication_middlware] = authentication_middlware_override
-    yield
-    del app.dependency_overrides[authentication_middlware]
+    return default_location_instance

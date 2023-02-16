@@ -1,29 +1,45 @@
-# auth-with-email-code-validation
-This repo will be implementing basic authentication API. Each account will have to be validated with code sent via email by our server.
+Pour exécuter le projet, suivre la démarche suivante
+# docker build --no-cache -t real-estate .
+# docker run -d --name realestate -p 8000:8000 real-estate
 
-To simulate email validation process please find below the mailtrap credentials:
+# Contexte
 
-* usr: codesnobility@gmail.com 
-* psswd: -%nubs_-2A7Hs6X
+On souhaite créer une API qui permet de donner la liste des villes les plus intéressantes pour l’utilisateur en fonction du prix au m² (pour de la location d’appartement) ainsi que de la note de la ville.
+Ressources
 
-Once connected click:
-* Sandbox > inboxes
+# Ressources externes à utiliser :
+    • https://www.bien-dans-ma-ville.fr/ : permet de récupérer la note globale d’une ville.
+    • https://www.data.gouv.fr/fr/datasets/carte-des-loyers-indicateurs-de-loyers-dannonce-par-commune-en-2018/ : permet de récupérer le loyer moyen d’une ville par code INSEE
+    • https://api.gouv.fr/documentation/api-geo : permet de récupérer les informations d’une ville en renseignant le code INSEE de la ville
+
+# L’API à développer
+
+L’API contient une seule requête avec :
+Les paramètres d’entrée de la requête sont : 
+    • Un département
+    • Une surface souhaitée pour le logement
+    • Un loyer maximum
+Les données en sortie seront une liste de villes avec :
+    • Le loyer moyen du bien pour la surface donnée
+    • La note de la ville
+    • Le nom de la ville
+    • Son code postal
+    • La population de la ville
+La manière de stocker les informations récupérées est à déterminer par le candidat.
+Contraintes
+
+# Contraintes techniques :
+    • Docker
+    • FastAPI
+
+# Exemple
+
+Pour le département 64, avec un loyer maximum de 800€ pour une surface de 50m², je m’attends à trouver les villes suivantes :
+    • Anglet (note 3.8 et loyer moyen à 12.89)
+    • Pau (note 3.6 et loyer moyen à 10.22)
+    • Bayonne (note 3.5 et loyer moyen à 12.18)
+    • Biarritz (note 3.5 et loyer moyen à 13.88)
+    • Saint-Jean-de-Luz (note 3.5 et loyer moyen à 12.78)
+    • …
 
 
-Build image & compose
-# docker-compose up -d
-
-Restart container
-# docker restart <container-id> or <container-name>
-
-Rebuild
-# docker-compose build --no-cache
-
-Delete image
-# docker image rm <image-id>
-
-# docker inspect <container-id>
-
-# docker exec -it <container-id> sh
-
-#docker-compose up --build
