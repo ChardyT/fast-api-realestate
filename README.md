@@ -1,4 +1,6 @@
 Pour exécuter le projet, suivre la démarche suivante
+# git clone https://github.com/ChardyT/fast-api-realestate.git
+# git checkout develop
 # docker build --no-cache -t real-estate .
 # docker run -d --name realestate -p 8000:8000 real-estate
 
