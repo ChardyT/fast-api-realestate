@@ -1,4 +1,6 @@
+import ast
 import asyncio
+import json
 import aiohttp
 
 from typing import List
@@ -48,11 +50,11 @@ class RentService:
 
     
     
-    async def get_city_info_by_insee_optimized(self, *insee: List[str]) -> List[str]:
+    async def get_city_info_by_insee_optimized(self, *insee: List[str]):
         async with aiohttp.ClientSession(headers=self.headers) as session:
             tasks = [session.get(self.base_url + insee_item) for insee_item in insee]
             responses = await asyncio.gather(*tasks)
-            return [await r.json() for r in responses]
+            return [await r.text() for r in responses]
 
 
     async def search_location_optimization(self, renting_data: dict) -> list:
@@ -64,9 +66,17 @@ class RentService:
         notes, infos = await asyncio.gather(
             self.get_city_note(*city_names),
             self.get_city_info_by_insee_optimized(*insee_codes)
-        )      
+        ) 
         
 
+        infos = list(map(lambda x: x.replace('Not Found', '{"nom":"NaN","code":"NaN","codeDepartement":"NaN","siren":"NaN","codeEpci":"NaN","codeRegion":"NaN","codesPostaux":["NaN"],"population":0}'), infos))
+        # convert infos to a list of dictionaries
+        infos = json.loads(json.dumps([json.loads(JSON_STRING) for JSON_STRING in infos]))
+
+
+        print("=====================================")
+        print(infos)
+        
         # Extract relevant information from infos
         codes_postaux = [info["codesPostaux"][0] for info in infos]
         population = [info["population"] for info in infos]
