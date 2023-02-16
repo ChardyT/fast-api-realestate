@@ -14,30 +14,6 @@ class RentService:
         self.rent_repository: RentRepository = rent_repository
         self.base_url = "https://geo.api.gouv.fr/communes/"
         self.headers = {"Content-Type": "application/json"}
-        
-    
-    async def search_location(self, renting_data: dict) -> list:
-        city_list: list = []
-        cities = await self.get_avg_rent_by_dep(renting_data['dep'])
-        for city in cities:
-            print("============city============")
-            print(city.ville)
-            note = await self.get_city_note(city.ville)
-            print("============note============")
-            print(note)
-            infos = await self.get_city_info_by_insee(city.insee)
-            print("============infos============")
-            print(infos["codesPostaux"][0])
-            city_list.append(City(
-                city.avg_rent,
-                note.rate,
-                city.ville,
-                infos["codesPostaux"],
-                infos["population"],
-            ))
-        
-        return city_list
-    
     
     #get every city note in a departement
     async def get_city_note(self, *city_names: List[str]) -> List[Note]:
@@ -67,15 +43,9 @@ class RentService:
         data = await self.rent_repository.get_cities_by_dep(dep)
         result_list: list = []
         for n in range(len(data)):
-            # print(data[n]["LIBGEO"])
            result_list.append(Rent(data[n]["id_zone"], data[n]["INSEE"], data[n]["LIBGEO"], data[n]["DEP"], data[n]["loypredm2"]))
         return result_list
 
-
-    #get every city info in a departement
-    async def get_city_info_by_insee(self, insee: List[str]):
-        informations = await self.rent_repository.get_city_info_by_insee_optimized(insee)
-        return informations.json()
     
     
     async def get_city_info_by_insee_optimized(self, *insee: List[str]) -> List[str]:
@@ -96,8 +66,6 @@ class RentService:
             self.get_city_info_by_insee_optimized(*insee_codes)
         )      
         
-        # print("============infos============")
-        # print(infos)
 
         # Extract relevant information from infos
         codes_postaux = [info["codesPostaux"][0] for info in infos]

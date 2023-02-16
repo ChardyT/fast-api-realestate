@@ -9,17 +9,6 @@ class DataFramePlayground:
     def __init__(self):
         pass
     #Play with pandas dataframe to explore data
-    def play_with_dataframe_rent_indicator(self,departement: str) -> object: 
-        #Data frame from csv
-        file = Path().cwd() / "api" / "scraping" / "indicateurs-loyers-appartements.csv"
-        data = pd.read_csv(file, sep=";", encoding="ISO-8859-1")
-        # data = pd.read_csv("../scraping/indicateurs-loyers-appartements.csv", sep=";", encoding="ISO-8859-1")
-        data.query('DEP == @departement', inplace=True)
-        print(data) #print dataframe
-        json_data = self.dataframe_to_json(data)
-        print(len(json.loads(json_data)))#print json
-        return json.loads(json_data)
-
     def play_with_dataframe_rent_indicator_optimized(self, departement: str) -> List[Dict[str, Any]]: 
     #Data frame from csv
         with open(Path().cwd() / "api" / "scraping" / "indicateurs-loyers-appartements.csv", encoding="ISO-8859-1") as file:
@@ -28,15 +17,6 @@ class DataFramePlayground:
         data = data[data['DEP'] == departement]
         return json.loads(self.dataframe_to_json(data))
 
-
-    def play_with_dataframe_city_rate(self, villes: List[str]) -> List[Dict[str, Any]]: 
-        #Data frame from csv
-        with open(Path().cwd() / "api" / "scraping" / "cities_rate.csv") as file:
-            data = pd.read_csv(file, sep=",")
-    
-            data.query('Villes == @villes', inplace=True)
-            print(data)
-            return json.loads(self.dataframe_to_json(data))
 
     def play_with_dataframe_city_rate_optimized(self, ville: List[str]) -> List[Dict[str, Any]]: 
         #Data frame from csv
@@ -58,9 +38,9 @@ class DataFramePlayground:
             rawdata = f.read()
         return chardet.detect(rawdata)['encoding']
 
-if __name__ == '__main__':
-    playground = DataFramePlayground()
+# if __name__ == '__main__':
+#     playground = DataFramePlayground()
     # print(playground.detect_encoding("../scraping/indicateurs-loyers-appartements.csv"))
     # playground.play_with_dataframe_rent_indicator("64")
-    playground.play_with_dataframe_city_rate(["Viodos-Abense-de-Bas","Aast","Pau","Abidos","Anglet","Bordeaux"])
+    # playground.play_with_dataframe_city_rate(["Viodos-Abense-de-Bas","Aast","Pau","Abidos","Anglet","Bordeaux"])
     

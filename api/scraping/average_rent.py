@@ -28,11 +28,11 @@ def get_average_rent_cities_by_insee(code_insee):
     for index, row in data.iterrows():
         print(index,'===========>>>>>>',row)
         print()
-        #if row['DEP']==code_insee:
-            #print(row['LIBGEO'],row['loypredm2'], row['lwr.IPm2'],row['upr.IPm2'])
+        if row['DEP']==code_insee:
+            print(row['LIBGEO'],row['loypredm2'], row['lwr.IPm2'],row['upr.IPm2'])
 
 
-if __name__ == '__main__':
-    file_url=get_average_rent_file_url()
-    csv_file=download_file(file_url)
-    get_average_rent_cities_by_insee(64)
+# if __name__ == '__main__':
+#     file_url=get_average_rent_file_url()
+#     csv_file=download_file(file_url)
+#     get_average_rent_cities_by_insee(64)

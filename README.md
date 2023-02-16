@@ -1,8 +1,18 @@
 Pour exécuter le projet, suivre la démarche suivante
 # git clone https://github.com/ChardyT/fast-api-realestate.git
+# once cloned cd into the project directory
 # git checkout develop
 # docker build --no-cache -t real-estate .
 # docker run -d --name realestate -p 8000:8000 real-estate
+# got your browser or use an rest app like postman
+# in browser enter http://0.0.0.0:8000/api/v1/docs for openApi specification with swagger
+# testing endpoint enter this adress: http://0.0.0.0:8000/api/v1/search with payload 
+# payload (dep(departement):int , space(superficie): int, amount(loyer max):float))
+{
+  "dep": 64, 
+  "space": 50,
+  "amount": 800.0
+}
 
 # Contexte
 

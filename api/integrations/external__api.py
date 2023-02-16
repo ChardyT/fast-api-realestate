@@ -1,26 +1,27 @@
+import aiohttp
 
-
-import requests
-
-
-class ExternalAPiCall():
+class ExternalApiCallAiohttp():
     def __init__(self, url, headers, params):
         self.url = None
         self.headers = None
         self.params = None
 
-    def get(self):
-        response = requests.get(self.url, headers=self.headers, params=self.params)
-        return response
+    async def get(self):
+        async with aiohttp.ClientSession(headers=self.headers) as session:
+            response = await session.get(self.url, params=self.params)
+            return await response.json()
 
-    def post(self, data):
-        response = requests.post(self.url, headers=self.headers, params=self.params, data=data)
-        return response
+    async def post(self, data):
+        async with aiohttp.ClientSession(headers=self.headers) as session:
+            response = await session.post(self.url, params=self.params, data=data)
+            return await response.json()
 
-    def put(self, data):
-        response = requests.put(self.url, headers=self.headers, params=self.params, data=data)
-        return response
+    async def put(self, data):
+        async with aiohttp.ClientSession(headers=self.headers) as session:
+            response = await session.put(self.url, params=self.params, data=data)
+            return await response.json()
 
-    def delete(self):
-        response = requests.delete(self.url, headers=self.headers, params=self.params)
-        return response
+    async def delete(self):
+        async with aiohttp.ClientSession(headers=self.headers) as session:
+            response = await session.delete(self.url, params=self.params)
+            return await response.json()

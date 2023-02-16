@@ -48,7 +48,7 @@ def scrape_cities(webpage, page_number):
    df.to_csv(r'cities_rate.csv')
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
    # get_cities_notes()
    #calling the function with relevant parameters
-   scrape_cities('https://www.bien-dans-ma-ville.fr/classement-ville-global/?page=', 0)
+   # scrape_cities('https://www.bien-dans-ma-ville.fr/classement-ville-global/?page=', 0)

@@ -17,7 +17,6 @@ class RentController:
         logger.info(renting_data)
         print(renting_data)
         renting_data = renting_data.dict()
-        # rent_repository = await self.renting_service.search_location(renting_data)
         rent_repositories =  await self.renting_service.search_location_optimization(renting_data)
         rent = [repository for repository in rent_repositories]
 
