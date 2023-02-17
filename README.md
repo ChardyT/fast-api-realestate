@@ -14,6 +14,9 @@ Pour exécuter le projet, suivre la démarche suivante
   "amount": 800.0
 }
 
+
+
+
 # Contexte
 
 On souhaite créer une API qui permet de donner la liste des villes les plus intéressantes pour l’utilisateur en fonction du prix au m² (pour de la location d’appartement) ainsi que de la note de la ville.

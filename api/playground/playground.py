@@ -12,7 +12,7 @@ class DataFramePlayground:
     def play_with_dataframe_rent_indicator_optimized(self, departement: str) -> List[Dict[str, Any]]: 
     #Data frame from csv
         with open(Path().cwd() / "api" / "scraping" / "indicateurs-loyers-appartements.csv", encoding="ISO-8859-1") as file:
-            data = pd.read_csv(file, sep=";")
+            data = pd.read_csv(file, sep=";", decimal=",")
         
         data = data[data['DEP'] == departement]
         return json.loads(self.dataframe_to_json(data))
