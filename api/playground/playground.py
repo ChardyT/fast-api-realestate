@@ -7,23 +7,21 @@ import chardet
 
 class DataFramePlayground:
     def __init__(self):
-        pass
+        with open(Path().cwd() / "api" / "scraping" / "indicateurs-loyers-appartements.csv", encoding="ISO-8859-1") as file:
+            self.data_flat = pd.read_csv(file, sep=";", decimal=",")
+        
+        with open(Path().cwd() / "api" / "scraping" / "cities_rate.csv") as file:
+            self.data_notes = pd.read_csv(file, sep=",")
     #Play with pandas dataframe to explore data
     def play_with_dataframe_rent_indicator_optimized(self, departement: str) -> List[Dict[str, Any]]: 
-    #Data frame from csv
-        with open(Path().cwd() / "api" / "scraping" / "indicateurs-loyers-appartements.csv", encoding="ISO-8859-1") as file:
-            data = pd.read_csv(file, sep=";", decimal=",")
-        
-        data = data[data['DEP'] == departement]
+    #Data frame from csv      
+        data = self.data_flat[self.data_flat['DEP'] == departement]
         return json.loads(self.dataframe_to_json(data))
 
 
     def play_with_dataframe_city_rate_optimized(self, ville: List[str]) -> List[Dict[str, Any]]: 
         #Data frame from csv
-        with open(Path().cwd() / "api" / "scraping" / "cities_rate.csv") as file:
-            data = pd.read_csv(file, sep=",")
-    
-            data = data[data['Villes'].isin(ville)]
+            data = self.data_notes[self.data_notes['Villes'].isin(ville)]
             return json.loads(self.dataframe_to_json(data))
 
 
