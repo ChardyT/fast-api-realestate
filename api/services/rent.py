@@ -16,29 +16,18 @@ class RentService:
         self.rent_repository: RentRepository = rent_repository
         self.base_url = "https://geo.api.gouv.fr/communes/"
         self.headers = {"Content-Type": "application/json"}
+        
+            
     
-    #get every city note in a departement
-    async def get_city_note(self, *city_names: List[str]) -> List[Note]:
+    #get every city note in a departement optimized
+    async def get_city_note_optimized(self, *city_names: List[str]) -> List[Note]:
         try:
             notes = await self.rent_repository.get_city_note(city_names)
-            note_data = []
-            for note in notes:
-                for city in city_names:
-                    if city == note["Villes"]:
-                        note_data.append(Note(
-                            note["Villes"],
-                            note["Notes"]
-                        ))
-                    else:
-                        note_data.append(Note(
-                            city,
-                            0.0
-                        ))
-
+            note_dict = {note["Villes"]: note["Notes"] for note in notes}
+            note_data = [Note(city, note_dict.get(city, 0.0)) for city in city_names]
             return note_data
         except Exception as e:
             print(e)
-            
             
     #get average city average rent in a departement
     async def get_avg_rent_by_dep(self, dep: int) -> list:
@@ -64,7 +53,7 @@ class RentService:
         
         # Execute get_city_note() and get_city_info_by_insee() in parallel
         notes, infos = await asyncio.gather(
-            self.get_city_note(*city_names),
+            self.get_city_note_optimized(*city_names),
             self.get_city_info_by_insee_optimized(*insee_codes)
         ) 
         
@@ -73,10 +62,6 @@ class RentService:
         # convert infos to a list of dictionaries
         infos = json.loads(json.dumps([json.loads(JSON_STRING) for JSON_STRING in infos]))
 
-
-        print("=====================================")
-        print(infos)
-        
         # Extract relevant information from infos
         codes_postaux = [info["codesPostaux"][0] for info in infos]
         population = [info["population"] for info in infos]

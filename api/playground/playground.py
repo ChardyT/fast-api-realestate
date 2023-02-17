@@ -24,7 +24,6 @@ class DataFramePlayground:
             data = pd.read_csv(file, sep=",")
     
             data = data[data['Villes'].isin(ville)]
-            print(data)
             return json.loads(self.dataframe_to_json(data))
 
 
@@ -38,9 +37,9 @@ class DataFramePlayground:
             rawdata = f.read()
         return chardet.detect(rawdata)['encoding']
 
-# if __name__ == '__main__':
-#     playground = DataFramePlayground()
+if __name__ == '__main__':
+    playground = DataFramePlayground()
     # print(playground.detect_encoding("../scraping/indicateurs-loyers-appartements.csv"))
     # playground.play_with_dataframe_rent_indicator("64")
-    # playground.play_with_dataframe_city_rate(["Viodos-Abense-de-Bas","Aast","Pau","Abidos","Anglet","Bordeaux"])
+    playground.play_with_dataframe_city_rate_optimized(["Viodos-Abense-de-Bas","Aast","Pau","Abidos","Anglet","Bordeaux"])
     
